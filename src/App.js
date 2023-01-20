@@ -9,34 +9,42 @@ function App() {
 
   const [personsState, setPersonsState] = useState({
     persons: [
-      { name: "Zeno", age: 22 },
-      { name: "Harry", age: 44 },
-      { name: "Filan", age: 24 }
+      { id: "xsdg4", name: "Zeno", age: 22 },
+      { id: "dfce7", name: "Harry", age: 44 },
+      { id: "htre8", name: "Filan", age: 24 }
     ],
   });
 
   const [otherState, setOtherState] = useState("some other value");
-  console.log(personsState, otherState);
+ // console.log(personsState, otherState);
 
-  const switchNameHandler = (newName) => {
-    setPersonsState({
-      persons: [
-        { name: newName, age: 22 },
-        { name: "HarryPotter", age: 25 },
-        { name: "FilanFisteku", age: 24 }
-      ],
-    });
-  }
+
     const nameChangedHandler = (event) => {
       setPersonsState({
         persons: [
           { name: "Zeno", age: 22 },
           { name: "HarryPotter", age: 25 },
           { name: event.target.value, age: 24 }
-        ],
+        ], 
       });
+  } 
+
+  const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
+  
+  const deletePersonHandler = (personIndex) => {
+      //const persons = personsState.persons.slice();
+      const persons = [...personsState.persons]; //... spread operator It copies the array so u don't change the original one    
+      persons.splice(personIndex, 1); //<-This removes one element from the array 1 i kallxojm qe 1 dojm me remove
+      setPersonsState({persons: persons});
   }
 
+
+  const togglePersonHandler = () => {
+      const doesShow = showPersonsState.showPersons;
+      setShowPersonsState({
+         showPersons: !doesShow
+      });     
+  }
 
   const style = {
     backgroundColor: "white",
@@ -46,22 +54,30 @@ function App() {
     cursor: "pointer" 
   }
 
-  return (
+  let persons = null;
+  if(showPersonsState.showPersons){
+     persons = (
+       <div>
+        {personsState.persons.map((person, index) => { 
+          return <Person 
+          click={() => deletePersonHandler(index)} 
+          name={person.name} 
+          age={person.age}
+          key={person.id}
+          changed={nameChangedHandler}
+          /> 
+        })}
+       </div> 
+    );     
+ }
+
+  return (    
     <div className="App">
       <h1>Hello Buddy</h1>
       <p>Testim</p>
-      <button style={style} onClick={() => switchNameHandler("ZenoSama")}>Switch name</button>
-       <Person name={personsState.persons[0].name} age={personsState.persons[0].age} />
-      <Person
-        name={personsState.persons[1].name}
-        age={personsState.persons[1].age}
-        click={switchNameHandler.bind(this, "OmniKing!")} />
-      <Person 
-      name = {personsState.persons[2].name} 
-      age = {personsState.persons[2].age}
-      changed = {nameChangedHandler}>My Hobbies: Biking</Person>
+      <button style={style} onClick={togglePersonHandler}>Toggle Persons</button>  
+      {persons}   
     </div>
-
   );
 }
 
@@ -70,6 +86,32 @@ function App() {
 export default App;
 
 
+//Between these two -> { } you can write js expression or code
+
 /* <Person name = "Zeno" age="22"/>
 <Person name = "Harry" age="44"/>
 <Person name = "Filan" age="24">My Hobbies: Biking</Person> */
+
+
+
+// const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
+
+// const togglePersonHandler = () => {
+//     const doesShow = showPersonsState.showPersons;
+//     setShowPersonsState({
+//        showPersons: !doesShow
+//     });     
+// }
+
+// {showPersonsState.showPersons ? <div>etj</div> : null }
+
+
+// const switchNameHandler = (newName) => {
+//   setPersonsState({
+//     persons: [
+//       { name: newName, age: 22 },
+//       { name: "HarryPotter", age: 25 },
+//       { name: "FilanFisteku", age: 24 }
+//     ],
+//   });
+// }

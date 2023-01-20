@@ -4,7 +4,7 @@ import "./Person.css";
 // const person = function() {
 //     return <p>Im a person</p>
 // }
-
+//Inside a function posht return duhet me u use <div></div> per me funksionu kodi mrena
 const person = (props) => {
     // return <p>Im a person and i am {Math.floor(Math.random() * 30)} years old</p>
     return (
