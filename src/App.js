@@ -2,6 +2,7 @@ import { hover } from '@testing-library/user-event/dist/hover';
 import { useState } from 'react';
 import './App.css';
 import Person from "./Person/Person";
+//everything inside these {} is javaScript 
 
 // This is our first component on React
 // The code inside the return is not html but JSX
@@ -11,13 +12,12 @@ function App() {
     persons: [
       { id: "xsdg4", name: "Zeno", age: 22 }, //<- qeky element/person ne array osht a javaScript Object
       { id: "dfce7", name: "Harry", age: 44 },
-      { id: "htre8", name: "Filan", age: 24 }
+      { id: "htre8", name: "Filan", age: 24 },
     ],
   });
 
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
-
 
     const nameChangedHandler = (event, id) => {
       //ktu jem ka e marrim indexin e elementit te cilin jem ka veprojm duke i krahasu id-jat, nese jon t njejta
@@ -52,7 +52,6 @@ function App() {
       setPersonsState({persons: persons});
   }
 
-
   const togglePersonHandler = () => {
       const doesShow = showPersonsState.showPersons;
       setShowPersonsState({
@@ -61,16 +60,21 @@ function App() {
   }
 
   const style = {
-    backgroundColor: "white",
+    backgroundColor: "green",
+    color: "white",
     font: "inherit",
     border: "1px solid blue",
     padding: "8px",
-    cursor: "pointer" 
+    cursor: "pointer",
+    ":hover": { //pseudo selectors are all suported with Radium 
+      backgroundColor: "lightgreen",
+      color: "black"
+    } 
   }
 
   let persons = null;
   if(showPersonsState.showPersons){
-
+    
     persons = (
        <div>  
         {/* tek map person osht elementi i array */}
@@ -86,23 +90,39 @@ function App() {
           
           //We outputet a list by maping an array into an array with jsx elements.
           //This is common pattern for outputing lists in React
-          /> 
+          />     
+    
         })}
-       </div> 
-    );     
+       </div>
+        
+    );   
+    
+    style.backgroundColor = "red";
+    style[":hover"] = { //pseudo selectors are all suported with Radium 
+      backgroundColor: "salmon",
+      color: "black"
+    } 
  }
 
+  let classes = [];  
+
+  if(personsState.persons.length <=2){
+      classes.push("red"); //classes = ["red"]
+  }
+  if(personsState.persons.length <=1){
+      classes.push("bold"); //classes = ["red", "bold"]
+  }
+
   return (    
-    <div className="App">
+    <div className="App"> 
       <h1>Hello Buddy</h1>
-      <p>Testim</p>
+      <p className={classes.join(" ")}>Testim</p>
       <button style={style} onClick={togglePersonHandler}>Toggle Persons</button>  
-      {persons}   
+      {persons}  
     </div>
+    
   );
 }
-
-
 
 export default App;
 
@@ -112,8 +132,6 @@ export default App;
 /* <Person name = "Zeno" age="22"/>
 <Person name = "Harry" age="44"/>
 <Person name = "Filan" age="24">My Hobbies: Biking</Person> */
-
-
 
 // const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
 
@@ -125,7 +143,6 @@ export default App;
 // }
 
 // {showPersonsState.showPersons ? <div>etj</div> : null }
-
 
 // const switchNameHandler = (newName) => {
 //   setPersonsState({
