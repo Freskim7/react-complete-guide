@@ -1,7 +1,8 @@
-import { hover } from '@testing-library/user-event/dist/hover';
 import { useState } from 'react';
 import './App.css';
 import Person from "./Person/Person";
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+
 //everything inside these {} is javaScript 
 
 // This is our first component on React
@@ -15,6 +16,7 @@ function App() {
       { id: "htre8", name: "Filan", age: 24 },
     ],
   });
+  
 
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
@@ -32,7 +34,7 @@ function App() {
       const person = {...personsState.persons[personIndex]}
 
       //ktu jem ka e ndryshojm emrin e personit n baz vleres qe i jem jep n input
-      person.name = event.target.value;
+      person.name = event.target.value;//we get the value the user entered n input aty
 
       //ktu pe krijojna nje copy array t personav edhe tana pe shtojna qat objekt qe e kem ndryshu ne array
       //ne baz te indexit qe e kem marr
@@ -59,18 +61,6 @@ function App() {
       });     
   }
 
-  const style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ":hover": { //pseudo selectors are all suported with Radium 
-      backgroundColor: "lightgreen",
-      color: "black"
-    } 
-  }
 
   let persons = null;
   if(showPersonsState.showPersons){
@@ -80,29 +70,33 @@ function App() {
         {/* tek map person osht elementi i array */}
         {/* the map method returns a new array in this case a component qe o jsx also is exeuted on every element in person's array */}
         {personsState.persons.map((person, index) => { //ktu e kem kthy nje list te personav
-          return <Person 
-          click={() => deletePersonHandler(index)} //we execute it here as an arrow function 
-          name={person.name}                       //so we can be able to pass one parameter there as an index         
-          age={person.age}
-          key={person.id} //kjo osht per me dit react cilat elemente me i bo re render ato t cilat kan ndryshu e jo krejt, per me i dallu nga elementet e tjera n baze te key
-          changed={(event) => nameChangedHandler(event, person.id)}
-          //(event) this is the first function qe ekzekutohet tana pasohet djathtats
-          
-          //We outputet a list by maping an array into an array with jsx elements.
-          //This is common pattern for outputing lists in React
-          />     
+                                                    //kjo osht per me dit react cilat elemente me i bo re render ato t cilat kan ndryshu e jo krejt, per me i dallu nga elementet e tjera n baze te key 
+          return <ErrorBoundary key={person.id}> 
+            <Person 
+            click={() => deletePersonHandler(index)} //we execute it here as an arrow function 
+            name={person.name}                       //so we can be able to pass one parameter there as an index         
+            age={person.age}
+            changed={(event) => nameChangedHandler(event, person.id)}
+            //(event) this is the first function qe ekzekutohet tana pasohet djathtats
+            
+            //We outputet a list by maping an array into an array with jsx elements.
+            //This is common pattern for outputing lists in React
+            />  
+          </ErrorBoundary>    
     
         })}
        </div>
-        
     );   
-    
-    style.backgroundColor = "red";
-    style[":hover"] = { //pseudo selectors are all suported with Radium 
-      backgroundColor: "salmon",
-      color: "black"
-    } 
  }
+
+        let buttonClass = "";
+
+        if(showPersonsState.showPersons){
+            buttonClass += "buttonApp buttonAppRed";
+          }else{
+            buttonClass += "buttonApp";
+        }
+ 
 
   let classes = [];  
 
@@ -114,13 +108,14 @@ function App() {
   }
 
   return (    
+
     <div className="App"> 
       <h1>Hello Buddy</h1>
       <p className={classes.join(" ")}>Testim</p>
-      <button style={style} onClick={togglePersonHandler}>Toggle Persons</button>  
+      <button className={buttonClass} onClick={togglePersonHandler}>Toggle Persons</button>  
       {persons}  
     </div>
-    
+
   );
 }
 
@@ -163,3 +158,10 @@ export default App;
 //     ], 
 //   });
 // } 
+
+
+  // style.backgroundColor = "red";
+    // style[":hover"] = { //pseudo selectors are all suported with Radium 
+    //   backgroundColor: "salmon",
+    //   color: "black"
+    // } 

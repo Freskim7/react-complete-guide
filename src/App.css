@@ -2,10 +2,43 @@
   text-align: center;
 }
 
-.red{
+.red {
   color: red;
 }
 
-.bold{
+.bold {
   font-weight: bold;
 }
+
+.buttonApp{
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.buttonApp:hover {
+    background-color: lightgreen;
+    color: black
+}
+
+.buttonAppRed{
+  background-color: red;
+}
+
+.buttonAppRed:hover{
+  background-color: salmon;
+  color: black
+}
+
+ /* let buttonClass = "";
+
+if(showPersonsState.showPersons){
+   buttonClass += "try2";
+ }else{
+   buttonClass += "try";
+} */
+
+

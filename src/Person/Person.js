@@ -5,15 +5,14 @@ import "./Person.css";
 // }
 //Inside a function posht return duhet me u use <div></div> per me funksionu kodi mrena
 const person = (props) => {
-    const style = {
-        "@media (min-width: 500px)": {
-            width: "450px"
-        }
+    const a = 4;
+    if(a > 7) {
+        throw new Error("smth went wrong");
     }
-
     // return <p>Im a person and i am {Math.floor(Math.random() * 30)} years old</p>
     return (
-        <div className="Person" style={style}>
+        
+        <div className="Person" >
             <p onClick={props.click}>Im {props.name} and i am {props.age} years old</p>
             <p>{props.children}</p> 
             <input type="text" onChange={props.changed} value={props.name}/>  
@@ -33,4 +32,6 @@ export default person;
 
 //to use Radium u need to push these in
 // import Radium from "radium";
-// export default Radium(person);
+// export default (person);
+//also u need to include import Radium, {StyleRoot} from 'radium'; in the root component qe osht App
+//and wrap the return of App with <StyleRoot> </StyleRoot>

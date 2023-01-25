@@ -7,3 +7,9 @@
     padding: 16px;
     text-align: center;
 }
+
+/* const style = {
+         "@media (min-width: 500px)": {
+             width: "450px"
+         }
+     } */
