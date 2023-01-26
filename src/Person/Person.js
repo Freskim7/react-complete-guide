@@ -5,10 +5,6 @@ import "./Person.css";
 // }
 //Inside a function posht return duhet me u use <div></div> per me funksionu kodi mrena
 const person = (props) => {
-    const a = 4;
-    if(a > 7) {
-        throw new Error("smth went wrong");
-    }
     // return <p>Im a person and i am {Math.floor(Math.random() * 30)} years old</p>
     return (
         
