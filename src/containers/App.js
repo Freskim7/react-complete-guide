@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './App.css';
-import Person from "./Person/Person";
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
+//App e menaxhon state edhe e manipulon ato using functions
+//app.js component is a Container component cuz it also manages state
 //everything inside these {} is javaScript 
 
 // This is our first component on React
@@ -9,14 +12,13 @@ import Person from "./Person/Person";
 function App() {
 
   const [personsState, setPersonsState] = useState({
-    persons: [
+    persons: [ 
       { id: "xsdg4", name: "Zeno", age: 22 }, //<- qeky element/person ne array osht a javaScript Object
       { id: "dfce7", name: "Harry", age: 44 },
       { id: "htre8", name: "Filan", age: 24 },
     ],
   });
   
-
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
 
@@ -60,58 +62,28 @@ function App() {
       });     
   }
 
-
   let persons = null;
   if(showPersonsState.showPersons){
     
-    persons = (
-       <div>  
-        {/* tek map person osht elementi i array */}
-        {/* the map method returns a new array in this case a component qe o jsx also is exeuted on every element in person's array */}
-        {personsState.persons.map((person, index) => { //ktu e kem kthy nje list te personav
-                                                    //key kjo osht per me dit react cilat elemente me i bo re render ato t cilat kan ndryshu e jo krejt, per me i dallu nga elementet e tjera n baze te key 
-            return  <Person 
-            click={() => deletePersonHandler(index)} //we execute it here as an arrow function 
-            name={person.name}                       //so we can be able to pass one parameter there as an index         
-            age={person.age}
-            key={person.id}
-            changed={(event) => nameChangedHandler(event, person.id)}
-            //(event) this is the first function qe ekzekutohet tana pasohet djathtats
-            
-            //We outputet a list by maping an array into an array with jsx elements.
-            //This is common pattern for outputing lists in React
-            />  
-          
-        })}
-       </div>
+    persons = (  //(); this is just so we can write ma shume se 1 rresht kod 
+                
+        <Persons 
+        persons={personsState.persons}
+        clicked={deletePersonHandler}
+        changed={nameChangedHandler}/> 
+       
     );   
  }
 
-        let buttonClass = "";
-
-        if(showPersonsState.showPersons){
-            buttonClass += "buttonApp buttonAppRed";
-          }else{
-            buttonClass += "buttonApp";
-        }
- 
-
-  let classes = [];  
-
-  if(personsState.persons.length <=2){
-      classes.push("red"); //classes = ["red"]
-  }
-  if(personsState.persons.length <=1){
-      classes.push("bold"); //classes = ["red", "bold"]
-  }
-
   return (    
-
+      //This part is called the Cockpit component elm mrena div without persons me i shti si component n veti e me i thirr tana veq n app
     <div className="App"> 
-      <h1>Hello Buddy</h1>
-      <p className={classes.join(" ")}>Testim</p>
-      <button className={buttonClass} onClick={togglePersonHandler}>Toggle Persons</button>  
-      {persons}  
+      <Cockpit
+       persons={personsState.persons}
+       showPersons={showPersonsState.showPersons}
+       clicked={togglePersonHandler}
+      />
+      {persons}
     </div>
 
   );
