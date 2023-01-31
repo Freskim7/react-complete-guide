@@ -18,7 +18,11 @@ function App() {
       { id: "htre8", name: "Filan", age: 24 },
     ],
   });
+
+  const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
   
+  const [showCockpitState, setshowCockpitState] = useState({showCockpit: true});
+
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
 
@@ -46,8 +50,6 @@ function App() {
       setPersonsState({persons: persons});
   } 
 
-  const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
-  
   const deletePersonHandler = (personIndex) => {
       //const persons = personsState.persons.slice();
       const persons = [...personsState.persons]; //... spread operator It copies the array so u don't change the original one    
@@ -78,11 +80,16 @@ function App() {
   return (    
       //This part is called the Cockpit component elm mrena div without persons me i shti si component n veti e me i thirr tana veq n app
     <div className="App"> 
-      <Cockpit
+      <button onClick={() => {setshowCockpitState({showCockpit: false})}}>
+      Remove Cockpit
+      </button>
+     
+      {showCockpitState.showCockpit ? <Cockpit
        persons={personsState.persons}
        showPersons={showPersonsState.showPersons}
        clicked={togglePersonHandler}
-      />
+      />: null}
+
       {persons}
     </div>
 
