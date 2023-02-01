@@ -20,14 +20,14 @@ const Cockpit = (props) => {
         return () => {
             console.log("[Cockpit.js] cleanup work in 2nd useEffect");
         }
-    })
+    }) 
  
     let classes = [];   
 
-    if(props.persons.length <=2){
+    if(props.personsLength <=2){
         classes.push("red"); //classes = ["red"]
     }
-    if(props.persons.length <=1){
+    if(props.personsLength <=1){
         classes.push("bold"); //classes = ["red", "bold"]
     }
 
@@ -50,3 +50,5 @@ const Cockpit = (props) => {
 }
 
 export default React.memo(Cockpit);
+//this method will memorise or store a snapshot of this component
+//and only if this input changes it will re render it. 

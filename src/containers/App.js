@@ -85,7 +85,7 @@ function App() {
       </button>
      
       {showCockpitState.showCockpit ? <Cockpit
-       persons={personsState.persons}
+       personsLength={personsState.persons.length}
        showPersons={showPersonsState.showPersons}
        clicked={togglePersonHandler}
       />: null}
