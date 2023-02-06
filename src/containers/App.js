@@ -2,8 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import AuthContext from '../context/auth-context';
 
-//App e menaxhon state edhe e manipulon ato using functions
+//App e menax hon state edhe e manipulon ato using functions
 //app.js component is a Container component cuz it also manages state
 //everything inside these {} is javaScript 
 
@@ -22,6 +23,8 @@ function App() {
   const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
   
   const [showCockpitState, setshowCockpitState] = useState({showCockpit: true});
+
+  const [authentictedState, setAuthenticatdState] = useState({authenticted: false});
 
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
@@ -50,6 +53,11 @@ function App() {
       setPersonsState({persons: persons});
   } 
 
+
+  const loginHandler = () => {
+     setAuthenticatdState({authenticted: true});
+  }
+
   const deletePersonHandler = (personIndex) => {
       //const persons = personsState.persons.slice();
       const persons = [...personsState.persons]; //... spread operator It copies the array so u don't change the original one    
@@ -72,7 +80,9 @@ function App() {
         <Persons 
         persons={personsState.persons}
         clicked={deletePersonHandler}
-        changed={nameChangedHandler}/> 
+        changed={nameChangedHandler}
+        isAuthenticated={authentictedState.authenticted}
+        /> 
        
     );   
  }
@@ -82,15 +92,21 @@ function App() {
     <div className="App"> 
       <button onClick={() => {setshowCockpitState({showCockpit: false})}}>
       Remove Cockpit
-      </button>
-     
+      </button>          {/*Value is a js object hence the double {} curly braces 
+                            Outer curly braces are there to enter dynamic content
+                            Inner curly braces construct javaScript object*/}
+      <AuthContext.Provider value={{
+        authenticted: authentictedState,
+        login: loginHandler}}>
+
       {showCockpitState.showCockpit ? <Cockpit
        personsLength={personsState.persons.length}
        showPersons={showPersonsState.showPersons}
        clicked={togglePersonHandler}
+       login={loginHandler}
       />: null}
-
       {persons}
+      </AuthContext.Provider>
     </div>
 
   );

@@ -13,6 +13,7 @@ const persons = (props) =>
     age={person.age}
     key={person.id}
     changed={(event) => props.changed(event, person.id)}
+    isAuth={props.isAuthenticated}
     //(event) this is the first function qe ekzekutohet tana pasohet djathtats
     //We outputet a list by maping an array into an array with jsx elements.
     //This is common pattern for outputing lists in React
