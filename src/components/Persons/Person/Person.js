@@ -20,7 +20,6 @@ const person = (props) => {
     // .children is used to acces everything that is in the middle of <person></person> component 
 };
 
-
 person.propTypes = {
     click: PropTypes.func,
     name: PropTypes.string,

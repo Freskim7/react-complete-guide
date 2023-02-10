@@ -10,8 +10,7 @@ const Cockpit = (props) => {
         // setTimeout(() => {  
         //     alert("Saved data to cloud!");
         // }, 1000);
-        
-        //toggleBtnRef.current.click();
+        toggleBtnRef.current.click();
         return () => {
             console.log("[Cockpit,js] cleanup work in useEffect");
         }
