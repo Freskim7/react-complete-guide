@@ -22,9 +22,9 @@ function App() {
 
   const [showPersonsState, setShowPersonsState] = useState({showPersons: false});
   
-  const [showCockpitState, setshowCockpitState] = useState({showCockpit: true});
+  const [showCockpitState, setshowCockpitState] = useState({ showCockpit: true});
 
-  const [authentictedState, setAuthenticatdState] = useState({authenticted: false});
+  const [authenticatedState, setAuthenticatedState] = useState({authenticated: false});
 
  // const [otherState, setOtherState] = useState("some other value");
  // console.log(personsState, otherState);
@@ -55,7 +55,7 @@ function App() {
 
 
   const loginHandler = () => {
-     setAuthenticatdState({authenticted: true});
+    setAuthenticatedState({authenticated: true});
   }
 
   const deletePersonHandler = (personIndex) => {
@@ -73,15 +73,16 @@ function App() {
   }
 
   let persons = null;
+  console.log(showPersonsState.showPersons);
   if(showPersonsState.showPersons){
-    
+    console.log(showPersonsState.showPersons);
     persons = (  //(); this is just so we can write ma shume se 1 rresht kod 
                 
         <Persons 
         persons={personsState.persons}
         clicked={deletePersonHandler}
         changed={nameChangedHandler}
-        isAuthenticated={authentictedState.authenticted}
+        isAuthenticated={authenticatedState.authenticated}
         /> 
        
     );   
@@ -96,15 +97,17 @@ function App() {
                             Outer curly braces are there to enter dynamic content
                             Inner curly braces construct javaScript object*/}
       <AuthContext.Provider value={{
-        authenticted: authentictedState,
-        login: loginHandler}}>
-
-      {showCockpitState.showCockpit ? <Cockpit
+        authenticated: authenticatedState.authenticated,
+        login: loginHandler
+        }}>
+       
+      {showCockpitState.showCockpit ? (
+      <Cockpit
        personsLength={personsState.persons.length}
        showPersons={showPersonsState.showPersons}
        clicked={togglePersonHandler}
-       login={loginHandler}
-      />: null}
+      />)
+      : null}
       {persons}
       </AuthContext.Provider>
     </div>

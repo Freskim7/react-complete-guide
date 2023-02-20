@@ -11,12 +11,16 @@ const person = (props) => {
     // return <p>Im a person and i am {Math.floor(Math.random() * 30)} years old</p>
     return (
         <div className="Person" >
-            {props.isAuth ? <p>Authenticted!</p> : <p>Please Log in</p>}
+            <AuthContext.Consumer>
+                {context =>
+                context.authenticated ? <p>Authenticted!</p> : <p>Please Log in</p>
+                }
+            </AuthContext.Consumer> 
             <p onClick={props.click}>Im {props.name} and i am {props.age} years old</p>
-            <input onChange={props.changed} value={props.name} />
-        </div>
+            <input onChange={props.changed} value={props.name} /> 
+        </div>  
     );
-    // <p>{props.children}</p>
+    // <p>{props.children}</p> 
     // .children is used to acces everything that is in the middle of <person></person> component 
 };
 
