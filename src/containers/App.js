@@ -4,7 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import AuthContext from '../context/auth-context';
 
-//App e menax hon state edhe e manipulon ato using functions
+//App e menaxhon state edhe e manipulon ato using functions
 //app.js component is a Container component cuz it also manages state
 //everything inside these {} is javaScript 
 

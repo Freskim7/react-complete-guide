@@ -12,9 +12,9 @@ const person = (props) => {
     return (
         <div className="Person" >
             <AuthContext.Consumer>
-                {context =>
+            {context =>
                 context.authenticated ? <p>Authenticted!</p> : <p>Please Log in</p>
-                }
+            }
             </AuthContext.Consumer> 
             <p onClick={props.click}>Im {props.name} and i am {props.age} years old</p>
             <input onChange={props.changed} value={props.name} /> 
